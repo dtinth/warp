@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@vercel/node": "^1.8.5",
+    "typescript": "^4.1.3",
+    "vercel": "^21.0.1"
+  },
+  "dependencies": {
+    "tweetnacl": "^1.0.3"
+  }
+}
