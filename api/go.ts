@@ -6,19 +6,24 @@ const keys: { [iss: string]: string } = {
 }
 
 export default async function (req: NowRequest, res: NowResponse) {
-  const iss = String(req.query.i)
-  if (!{}.hasOwnProperty.call(keys, iss)) {
-    res.status(400).send('unknown issuer')
-    return
+  try {
+    const iss = String(req.query.i)
+    if (!{}.hasOwnProperty.call(keys, iss)) {
+      res.status(400).send('unknown issuer')
+      return
+    }
+    const key = Buffer.from(keys[iss], 'base64')
+    const url = String(req.query.u)
+    const message = Buffer.from(url)
+    const sig = Buffer.from(String(req.query.s), 'base64')
+    const verified = nacl.sign.detached.verify(message, sig, key)
+    if (!verified) {
+      res.status(400).send('invalid signature')
+      return
+    }
+    res.redirect(url)
+  } catch (error) {
+    res.status(500).send('something is off')
+    console.error(error)
   }
-  const key = Buffer.from(keys[iss], 'base64')
-  const url = String(req.query.u)
-  const message = Buffer.from(url)
-  const sig = Buffer.from(String(req.query.s), 'base64')
-  const verified = nacl.sign.detached.verify(message, sig, key)
-  if (!verified) {
-    res.status(400).send('invalid signature')
-    return
-  }
-  res.redirect(url)
 }
