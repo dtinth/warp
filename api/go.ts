@@ -23,7 +23,7 @@ export default async function (req: NowRequest, res: NowResponse) {
     }
     res.redirect(url)
   } catch (error) {
-    res.status(500).send('something is off')
     console.error(error)
+    res.status(500).send('something is off')
   }
 }
