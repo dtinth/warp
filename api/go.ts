@@ -16,6 +16,7 @@ export default async function (req: NowRequest, res: NowResponse) {
     const url = String(req.query.u)
     const message = Buffer.from(url)
     const sig = Buffer.from(String(req.query.s), 'base64')
+    console.log(key, message, sig)
     const verified = nacl.sign.detached.verify(message, sig, key)
     if (!verified) {
       res.status(400).send('invalid signature')
