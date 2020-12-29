@@ -14,7 +14,8 @@ export default async function (req: NowRequest, res: NowResponse) {
     }
     const key = Buffer.from(keys[iss], 'base64')
     const url = String(req.query.u)
-    const message = Buffer.from(url)
+    const prefixLength = +req.query.p
+    const message = Buffer.from(prefixLength ? url.slice(0, prefixLength) + '*' : url)
     const sig = Buffer.from(String(req.query.s), 'base64')
     console.log(key, message, sig)
     const verified = nacl.sign.detached.verify(message, sig, key)
