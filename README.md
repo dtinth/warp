@@ -90,3 +90,9 @@ Instead of signing the whole URL, a URL prefix can be signed instead.
     ```
 
 4. Use the signed URL.
+
+## How I am using this
+
+I sign URLs through my personal chat bot [automatron](https://dt.in.th/automatron.html). It [takes care of constructing the signed URL and holds the private key](https://github.com/dtinth/automatron-prelude/blob/8e8cf05ff030492882290527c3a1ed861caa4660/prelude.js#L76-L88) [encrypted](https://github.com/dtinth/encrypted).
+
+![Screenshot](https://user-images.githubusercontent.com/193136/103305807-b29d1980-4a3e-11eb-9443-46871875fa86.png)
